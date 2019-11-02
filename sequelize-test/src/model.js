@@ -41,10 +41,11 @@ Blogs.belongsTo(User, {
   // 创建外键key Blogs.userId   =>  users.id
   foreignKey: 'userId'
 })
-// User.hasMang(Blogs, {
-//    // 创建外键key Blogs.userId   =>  users.id
-//    foreignKey: 'userId'
-// })
+// console.log(User)
+User.hasMany(Blogs, {
+   // 创建外键key Blogs.userId   =>  users.id
+   foreignKey: 'userId'
+})
 // Blogs.belongsTo(User)   // 自动关联
 module.exports = {
   User, Blogs
