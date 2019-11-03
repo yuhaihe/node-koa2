@@ -19,8 +19,14 @@ router.get('/string', async (ctx, next) => {
 })
 
 router.get('/json', async (ctx, next) => {
+  const session = ctx.session
+  if (session.viewNum == null) {
+    session.viewNum = 0
+  } 
+  session.viewNum++
+
   ctx.body = {
-    ctx
+    viewNum: session.viewNum
   }
 })
 
