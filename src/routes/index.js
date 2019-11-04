@@ -1,4 +1,5 @@
 const router = require('koa-router')()
+const cookieParase = require('cookie-parser')
 
 router.get('/', async (ctx, next) => {
   await ctx.render('index', {
@@ -19,20 +20,21 @@ router.get('/string', async (ctx, next) => {
 })
 
 router.get('/json', async (ctx, next) => {
-  // const session = ctx.session
-  // if (session.viewNum == null) {
-  //   session.viewNum = 0
-  // } 
-  // session.viewNum++
-
+  const session = ctx.session
+  if (session.viewNum == null) {
+    session.viewNum = 0
+  } 
+  session.viewNum++
+  let cookie = ctx.cookies.get('weibo.sid')
   ctx.body = {
-    a: 123
-    // viewNum: session.viewNum
+    cookie,
+    title: 'hello hayho!',
+    viewNum: session.viewNum
   }
 })
 
 router.get('/profile/:userName', async (ctx, next) => {
-  const  {userName } = ctx.params
+  const  { userName } = ctx.params
   ctx.body = {
     userName
   }
