@@ -3,7 +3,7 @@
  * @author hayho
  */
 
-const { User } = require('../db/model/User')
+const User = require('../db/model/User')
 const { formatUser } = require('./_format')
 /**
  * 获取用户信息
@@ -21,9 +21,9 @@ async function getUserInfo(userName,passWord) {
 
   // 查询
   const result = await User.findOne({
-    attribute: ['id', 'userName', 'nickName', 'picture', 'city'],
+    attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
     where: whereOpt
-  })
+})
   if (result == null) {
     // 未找到
     return result
