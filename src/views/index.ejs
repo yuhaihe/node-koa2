@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>EJS Welcome to <%= title %></p>
-    <hr>
-    <%- include('widgets/user-info', { isMe }) %>
-    <hr>
-    <%- include('widgets/blog-list', { blogList }) %>
-    <script>
-      console.log('window')
-    </script>
-  </body>
-</html>
+<%- include('layout/header.ejs', {title:'首页', isNav: true}) %>
+
+<h1><%= locals.title %></h1>
+<p>EJS Welcome to <%= locals.title %></p>
+<hr>
+<%- include('widgets/user-info', { isMe }) %>
+<hr>
+<%- include('widgets/blog-list', { blogList }) %>
+
+<%- include('layout/footer')%>
