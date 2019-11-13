@@ -3,9 +3,9 @@
  * @author hayho
  */
 
-const seq = require('./sqz')
+const seq = require('./seq')
 
-// require('./model')
+require('./model/index')
 
 // test
 seq.authenticate().then(() => {

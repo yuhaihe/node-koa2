@@ -9,7 +9,7 @@ router.get('/', async (ctx, next) => {
       { title: 'bbb' },
       { title: 'ccc' },
       { title: 'sss' },
-      { title: 'ddd' },
+      { title: 'ddd' }
     ]
   })
 })
