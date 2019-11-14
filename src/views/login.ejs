@@ -36,8 +36,9 @@
                         return
                     }
                     // 跳转到指定 url 或首页
-                    // var redirectUrl = $.query.get('url') || '/'
-                    // location.href = redirectUrl
+                    localStorage.setItem('user', JSON.stringify(data))
+                    var redirectUrl = $.query.get('url') || '/'
+                    location.href = redirectUrl
                 })
             })
         })
