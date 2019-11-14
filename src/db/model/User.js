@@ -11,7 +11,7 @@ const User = seq.define('user', {
     unique: true,
     commit: '用户名唯一'
   },
-  passWord: {
+  password: {
     type: STRING,
     allowNull: false,
     commit: '密码'

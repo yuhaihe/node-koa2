@@ -11,7 +11,7 @@ const redisStore = require('koa-redis')
 
 const { REDIS_CONF } = require('./src/conf/db')
 const { isProd } = require('./src/utils/env')
-const { SECRET } = require('./src/conf/constants')
+const { SESSION_SCRECT_KEY } = require('./src/conf/screctKeys')
 // 路由
 const errorViewRouter = require('./src/routes/views/error')
 const index = require('./src/routes/index')
@@ -45,7 +45,7 @@ app.use(views(__dirname + '/src/views', {
 }))
 
 // session 配置
-app.keys = ['Hayho+_*&^%']
+app.keys = [SESSION_SCRECT_KEY]
 app.use(session({
   key: 'weibo.sid',  // cookie name  默认 koa.sid
   prefix: 'weibo:sess:',  // redis key 前缀。默认koa:sess:

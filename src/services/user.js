@@ -23,7 +23,7 @@ async function getUserInfo(userName,passWord) {
   const result = await User.findOne({
     attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
     where: whereOpt
-})
+  })
   if (result == null) {
     // 未找到
     return result
@@ -34,6 +34,20 @@ async function getUserInfo(userName,passWord) {
   return formatResult
 }
 
+/**
+ * 创建用户
+ * @param {object} param0 
+ */
+async function createUser({userName, password, genderen=3, nickName}) {
+  const result = await User.create({
+    userName, 
+    password, 
+    nickName: nickName ? nickName : userName, 
+    genderen
+  }) 
+  return result.dataValues
+}
+
 module.exports = {
-  getUserInfo
+  getUserInfo, createUser
 }
