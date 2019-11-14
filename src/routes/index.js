@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 const cookieParase = require('cookie-parser')
-const { loginRedirect, loginCheck } = require('../middlewares/loginChecks')
+const { loginRedirect, loginChecks } = require('../middlewares/loginChecks')
 router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
     isMe:true,
@@ -18,7 +18,7 @@ router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
 
-router.get('/json',loginCheck, async (ctx, next) => {
+router.get('/json', loginChecks, async (ctx, next) => {
   // const session = ctx.session
   // if (session.viewNum == null) {
   //   session.viewNum = 0
