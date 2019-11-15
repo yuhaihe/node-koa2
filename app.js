@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const app = new Koa()
+const path = require('path')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
@@ -41,7 +42,7 @@ app.use(bodyparser({
 app.use(json())
 app.use(logger())
 app.use(koaStatic(__dirname + '/src/public'))
-app.use(koaStatic(__dirname + '/uploadFiles'))
+app.use(koaStatic(path.join(__dirname, 'uploadFiles')))
 app.use(views(__dirname + '/src/views', {
   extension: 'ejs'
 }))
