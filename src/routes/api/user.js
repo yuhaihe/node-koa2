@@ -20,8 +20,6 @@ router.post('/isExist', async (ctx, next) => {
 // 注册
 router.post('/register', genValidate(userValidate), async (ctx, next) => {
   const { userName, password, genderen } = ctx.request.body
-
-  // 调用controller
   ctx.body = await register({ userName, password, genderen })
 })
 
