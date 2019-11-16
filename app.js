@@ -55,7 +55,7 @@ app.use(session({
   cookie: {
     path: '/',
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000,  // ms
+    maxAge: 1 * 60 * 60 * 1000,  // ms
   },
   // ttl: 24 * 60 * 60 * 1000,
   store: redisStore({
