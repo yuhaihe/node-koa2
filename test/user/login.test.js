@@ -56,9 +56,35 @@ test('登录验证，应该成功', async () => {
   COOKIE = res.headers['set-cookie'].join(';')
 })
 
+// 修改基本信息
+test('修改基本信息，应该成功', async () => {
+  const res = await server.patch('/api/user/changeInfo').
+    send({  
+      nickName: 'hayh',
+      city: '上海',
+      picture: 'text.png' 
+    })
+    .set('cookie', COOKIE)
+   expect(res.body.errno).toBe(0)
+})
+
+// 修改用户密码
+test('修改用户密码，应该成功', async () => {
+  const res = await server.patch('/api/user/changePassword').
+    send({ password, newPassword: '123123' })
+    .set('cookie', COOKIE)
+   expect(res.body.errno).toBe(0)
+})
+
 // 删除用户
 test('删除，应该成功', async () => {
   const res = await server.post('/api/user/delete').set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
+// 退出登录
+test('退出登录，应该成功', async () => {
+  const res = await server.post('/api/user/logout').set('cookie', COOKIE)
   expect(res.body.errno).toBe(0)
 })
 
