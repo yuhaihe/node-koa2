@@ -2,7 +2,7 @@
  * @description user controller
  */
 
-const { getUserInfo, createUser, deleteUser, updateUser } = require('../services/user')
+const { getUserInfo, createUser, deleteUser, updateUser, updatePassword } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const {
   registerUserNameNotExistInfo,
@@ -10,7 +10,8 @@ const {
   registerFailInfo,
   loginFailInfo,
   deleteUserFailInfo,
-  changeInfoFailInfo } = require('../model/ErrorInfo')
+  changeInfoFailInfo,
+  changePasswordFailInfo } = require('../model/ErrorInfo')
 const doCrypto = require('../utils/cryp')
 /**
  * 用户名是否存在
@@ -44,7 +45,7 @@ async function register({ userName, password, genderen }) {
   // 实现注册功能
   try {
     await createUser({
-      userName, 
+      userName,
       password: doCrypto(password),
       genderen
     })
@@ -86,7 +87,7 @@ async function deleteCurUser(userName) {
 }
 
 /**
- * 
+ * 修改用户信息
  * @param {object} ctx 
  * @param {object} param1 用户信息
  */
@@ -97,19 +98,45 @@ async function changeInfo(ctx, { nickName, city, picture }) {
   }
 
   const result = await updateUser(
-    { newNickName: nickName ,
+    {
+      newNickName: nickName,
       newCity: city,
-      newPicture: picture }, 
+      newPicture: picture
+    },
     { userName })
-  
+
   if (result) {
-    Object.assign(ctx.session.userInfo, { nickName, city, picture } )
+    Object.assign(ctx.session.userInfo, { nickName, city, picture })
     return new SuccessModel()
   }
 
   return new ErrorModel(changeInfoFailInfo)
 }
 
+/**
+ * 修改密码
+ * @param {object} param0 用户名，密码，新密码
+ */
+async function changePassword(userName, password, newPassword) {
+  const result = await updateUser(
+    { newPassword: doCrypto(newPassword) },
+    { userName, password: doCrypto(password) })
+  if (result) {
+    return new SuccessModel()
+  }
+
+  return new ErrorModel(changePasswordFailInfo)
+}
+
+/**
+ * 退出登录
+ * @param {object} ctx 
+ */
+async function logout(ctx) {
+  delete ctx.session.userInfo
+  return new SuccessModel()
+}
+
 module.exports = {
-  isExist, register, login, deleteCurUser, changeInfo
+  isExist, register, login, deleteCurUser, changeInfo, changePassword, logout
 }

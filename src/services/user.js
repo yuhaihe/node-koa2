@@ -5,6 +5,7 @@
 
 const User = require('../db/model/User')
 const { formatUser } = require('./_format')
+
 /**
  * 获取用户信息
  * @param {string} userName 用户名
