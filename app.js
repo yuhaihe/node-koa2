@@ -16,10 +16,11 @@ const { isProd } = require('./src/utils/env')
 const { SESSION_SCRECT_KEY } = require('./src/conf/screctKeys')
 // 路由
 const errorViewRouter = require('./src/routes/views/error')
-const index = require('./src/routes/index')
+const blogViewRouter = require('./src/routes/views/blog')
 const userViewRouter = require('./src/routes/views/user')
 const userAPIRouter = require('./src/routes/api/user')
 const utilAPIRouter = require('./src/routes/api/utils')
+const blogHomeAPIRouter = require('./src/routes/api/blog-home')
 
 // app.use(jwtKoa({
 //   secret: SECRET
@@ -64,11 +65,12 @@ app.use(session({
 }))
 
 // routes
-app.use(index.routes(), index.allowedMethods())
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(utilAPIRouter.routes(), utilAPIRouter.allowedMethods())
+app.use(blogHomeAPIRouter.routes(), blogHomeAPIRouter.allowedMethods())
 // 404路由放最后
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 

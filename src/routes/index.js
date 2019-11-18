@@ -3,14 +3,8 @@ const cookieParase = require('cookie-parser')
 const { loginRedirect, loginChecks } = require('../middlewares/loginChecks')
 router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
-    isMe:true,
-    blogList: [
-      { title: 'aaa' },
-      { title: 'bbb' },
-      { title: 'ccc' },
-      { title: 'sss' },
-      { title: 'ddd' }
-    ]
+    isMe: true,
+    blogData: {}
   })
 })
 

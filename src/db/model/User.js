@@ -2,7 +2,7 @@
  * @description User数据模型
  */
 const seq = require('../seq')
-const { STRING, DECIMAL, TEXT, INT } = require('../types')
+const { STRING, DECIMAL } = require('../types')
 
 const User = seq.define('user', {
   userName: {
