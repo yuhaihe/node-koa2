@@ -6,10 +6,13 @@
 const router = require('koa-router')()
 const { loginChecks } = require('../../middlewares/loginChecks')
 const { create } = require('../../controller/blog-home')
+const blogValidator = require('../../validator/blog')
+const { genValidate } = require('../../middlewares/validate')
+
 router.prefix('/api/blog')
 
 // 创建微博
-router.post('/create', loginChecks, async (ctx, next) => {
+router.post('/create', loginChecks, genValidate(blogValidator), async (ctx, next) => {
   const { content, image } = ctx.request.body
   const { id: userId } = ctx.session.userInfo
   ctx.body = await create({userId,content, image})
