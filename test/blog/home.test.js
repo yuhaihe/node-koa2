@@ -25,3 +25,9 @@ test('创建微博,应该成功', async () => {
 
     BLOG_ID = res.body.data.id
 })
+
+test('删除微博，应该成功', async () => {
+  const res = await server.post('/api/blog/delete')
+  .send({id: BLOG_ID}).set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})

@@ -21,6 +21,7 @@ const userViewRouter = require('./src/routes/views/user')
 const userAPIRouter = require('./src/routes/api/user')
 const utilAPIRouter = require('./src/routes/api/utils')
 const blogHomeAPIRouter = require('./src/routes/api/blog-home')
+const profileAPIRouter = require('./src/routes/api/blog-profile')
 
 // app.use(jwtKoa({
 //   secret: SECRET
@@ -71,6 +72,7 @@ app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(utilAPIRouter.routes(), utilAPIRouter.allowedMethods())
 app.use(blogHomeAPIRouter.routes(), blogHomeAPIRouter.allowedMethods())
+app.use(profileAPIRouter.routes(), profileAPIRouter.allowedMethods())
 // 404路由放最后
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
