@@ -65,7 +65,6 @@ async function deleteBlog(id) {
       id
     }
   })
-  console.log(result)
   return result > 0
 }
 
