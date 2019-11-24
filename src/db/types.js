@@ -8,6 +8,6 @@ module.exports = {
   STRING: Sequelize.STRING,
   DECIMAL: Sequelize.DECIMAL,
   TEXT: Sequelize.TEXT,
-  INT: Sequelize.INTEGER,
+  INTEGER: Sequelize.INTEGER,
   BOOLEAN: Sequelize.BOOLEAN
 }

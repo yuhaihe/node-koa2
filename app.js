@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const app = new Koa()
+const path = require('path')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
@@ -7,16 +8,21 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
+const koaStatic = require('koa-static')
 // const jwtKoa = require('koa-jwt')
 
 const { REDIS_CONF } = require('./src/conf/db')
 const { isProd } = require('./src/utils/env')
-const { SECRET } = require('./src/conf/constants')
+const { SESSION_SCRECT_KEY } = require('./src/conf/screctKeys')
 // 路由
 const errorViewRouter = require('./src/routes/views/error')
-const index = require('./src/routes/index')
+const blogViewRouter = require('./src/routes/views/blog')
 const userViewRouter = require('./src/routes/views/user')
 const userAPIRouter = require('./src/routes/api/user')
+const utilAPIRouter = require('./src/routes/api/utils')
+const blogHomeAPIRouter = require('./src/routes/api/blog-home')
+const profileAPIRouter = require('./src/routes/api/blog-profile')
+const squareAPIRouter = require('./src/routes/api/blog-square')
 
 // app.use(jwtKoa({
 //   secret: SECRET
@@ -38,14 +44,14 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/src/public'))
-
+app.use(koaStatic(__dirname + '/src/public'))
+app.use(koaStatic(path.join(__dirname, 'uploadFiles')))
 app.use(views(__dirname + '/src/views', {
   extension: 'ejs'
 }))
 
 // session 配置
-app.keys = ['Hayho+_*&^%']
+app.keys = [SESSION_SCRECT_KEY]
 app.use(session({
   key: 'weibo.sid',  // cookie name  默认 koa.sid
   prefix: 'weibo:sess:',  // redis key 前缀。默认koa:sess:
@@ -61,9 +67,14 @@ app.use(session({
 }))
 
 // routes
-app.use(index.routes(), index.allowedMethods())
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
+app.use(utilAPIRouter.routes(), utilAPIRouter.allowedMethods())
+app.use(blogHomeAPIRouter.routes(), blogHomeAPIRouter.allowedMethods())
+app.use(profileAPIRouter.routes(), profileAPIRouter.allowedMethods())
+app.use(squareAPIRouter.routes(), squareAPIRouter.allowedMethods())
 // 404路由放最后
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 

@@ -1,16 +1,10 @@
 const router = require('koa-router')()
 const cookieParase = require('cookie-parser')
-
-router.get('/', async (ctx, next) => {
+const { loginRedirect, loginChecks } = require('../middlewares/loginChecks')
+router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
-    isMe:true,
-    blogList: [
-      { title: 'aaa' },
-      { title: 'bbb' },
-      { title: 'ccc' },
-      { title: 'sss' },
-      { title: 'ddd' }
-    ]
+    isMe: true,
+    blogData: {}
   })
 })
 
@@ -18,17 +12,16 @@ router.get('/string', async (ctx, next) => {
   ctx.body = 'koa2 string'
 })
 
-router.get('/json', async (ctx, next) => {
-  const session = ctx.session
-  if (session.viewNum == null) {
-    session.viewNum = 0
-  } 
-  session.viewNum++
-  let cookie = ctx.cookies.get('weibo.sid')
+router.get('/json', loginChecks, async (ctx, next) => {
+  // const session = ctx.session
+  // if (session.viewNum == null) {
+  //   session.viewNum = 0
+  // } 
+  // session.viewNum++
+  // let cookie = ctx.cookies.get('weibo.sid')
   ctx.body = {
-    cookie,
-    title: 'hello hayho!',
-    viewNum: session.viewNum
+    // cookie,
+    session: ctx.session
   }
 })
 

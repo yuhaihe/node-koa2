@@ -2,7 +2,7 @@
  * @description User数据模型
  */
 const seq = require('../seq')
-const { STRING, DECIMAL, TEXT, INT } = require('../types')
+const { STRING, DECIMAL } = require('../types')
 
 const User = seq.define('user', {
   userName: {
@@ -11,7 +11,7 @@ const User = seq.define('user', {
     unique: true,
     commit: '用户名唯一'
   },
-  passWord: {
+  password: {
     type: STRING,
     allowNull: false,
     commit: '密码'
