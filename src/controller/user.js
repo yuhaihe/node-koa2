@@ -21,7 +21,7 @@ async function isExist(userName) {
   const userInfo = await getUserInfo(userName)
   if (userInfo) {
     // 已存在
-    return new SuccessModel()
+    return new SuccessModel(userInfo)
     // { errno: 0, data: {...} }
   } else {
     // 不存在

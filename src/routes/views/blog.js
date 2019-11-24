@@ -45,13 +45,24 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
   const result = await getProfileBlogList(curUserName, 1)
   const { isEmpty, blogList, pageSize, pageIndex, count } = result.data
 
+  // 获取粉丝
+
+  
   await ctx.render('profile', {
     blogData: {
       isEmpty, blogList, pageSize, pageIndex, count
     },
     userData: {
       userInfo: curUserInfo,
-      isMe
+      isMe,
+      fansData: {
+        count: 0,
+        list: []
+      },
+      followersData: {
+        count: 0,
+        list: []
+      }
     }
   })
 })
