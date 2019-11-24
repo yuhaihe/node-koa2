@@ -23,7 +23,7 @@ async function getUserInfo(userName,passWord) {
   const result = await User.findOne({
     attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
     where: whereOpt
-})
+  })
   if (result == null) {
     // 未找到
     return result
