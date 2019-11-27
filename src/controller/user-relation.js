@@ -3,7 +3,7 @@
  * @author hayho
  */
 
-const { getUsersByFollower, addFollower, deleteFollower } = require('../services/user-relation')
+const { getUsersByFollower, getFollowerByUser, addFollower, deleteFollower } = require('../services/user-relation')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { addFollowerFailInfo, deleteFollowerFailInfo } = require('../model/ErrorInfo')
 /**
@@ -15,6 +15,18 @@ async function getFans(userId) {
   return new SuccessModel({
     count, 
     fansList: userList
+  })
+}
+
+/**
+ * 获取关注人列表
+ * @param {number} userId 用户id
+ */
+async function getFollowers(userId) {
+  const { count, userList } = await getFollowerByUser(userId)
+  return new SuccessModel({
+    count, 
+    followersList: userList
   })
 }
 
@@ -49,6 +61,7 @@ async function unFollow(myUserId, curUserId) {
 
 module.exports = {
   getFans,
+  getFollowers,
   follow,
   unFollow
 }
