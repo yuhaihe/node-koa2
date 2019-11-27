@@ -9,6 +9,7 @@ const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const koaStatic = require('koa-static')
+const cors = require('koa2-cors') //跨域处理
 // const jwtKoa = require('koa-jwt')
 
 const { REDIS_CONF } = require('./src/conf/db')
@@ -23,6 +24,7 @@ const utilAPIRouter = require('./src/routes/api/utils')
 const blogHomeAPIRouter = require('./src/routes/api/blog-home')
 const profileAPIRouter = require('./src/routes/api/blog-profile')
 const squareAPIRouter = require('./src/routes/api/blog-square')
+const mock = require('./src/routes/mock/index')
 
 // app.use(jwtKoa({
 //   secret: SECRET
@@ -42,6 +44,7 @@ onerror(app, onerrorConfig)
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
+app.use(cors())
 app.use(json())
 app.use(logger())
 app.use(koaStatic(__dirname + '/src/public'))
@@ -66,6 +69,7 @@ app.use(session({
   })
 }))
 
+app.use(mock.routes(), mock.allowedMethods())
 // routes
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
