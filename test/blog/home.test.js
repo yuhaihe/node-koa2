@@ -4,7 +4,7 @@
  */
 
 const server = require('../server')
-const { COOKIE } = require('../testUserInfo')
+const { Z_COOKIE } = require('../testUserInfo')
 
 // 微博id
 let BLOG_ID = ''
@@ -18,7 +18,7 @@ test('创建微博,应该成功', async () => {
     .send({
       content, image
     })
-    .set('cookie', COOKIE)
+    .set('cookie', Z_COOKIE)
     expect(res.body.errno).toBe(0)
     expect(res.body.data.content).toBe(content)
     expect(res.body.data.image).toBe(image)
@@ -28,6 +28,6 @@ test('创建微博,应该成功', async () => {
 
 test('删除微博，应该成功', async () => {
   const res = await server.post('/api/blog/delete')
-  .send({id: BLOG_ID}).set('cookie', COOKIE)
+  .send({id: BLOG_ID}).set('cookie', Z_COOKIE)
   expect(res.body.errno).toBe(0)
 })
