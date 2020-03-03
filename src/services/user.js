@@ -5,19 +5,19 @@
 
 const User = require('../db/model/User')
 const { formatUser } = require('./_format')
-
+const { addFollower } = require('./user-relation')
 /**
  * 获取用户信息
  * @param {string} userName 用户名
  * @param {string} passWord 密码
  */
-async function getUserInfo(userName,password) {
+async function getUserInfo(userName, password) {
   // 查询条件
   const whereOpt = {
     userName
   }
   if (password) {
-    Object.assign(whereOpt, {password})
+    Object.assign(whereOpt, { password })
   }
 
   // 查询
@@ -39,14 +39,17 @@ async function getUserInfo(userName,password) {
  * 创建用户
  * @param {object} param0 
  */
-async function createUser({userName, password, genderen=3, nickName}) {
+async function createUser({ userName, password, genderen = 3, nickName }) {
   const result = await User.create({
-    userName, 
-    password, 
-    nickName: nickName ? nickName : userName, 
+    userName,
+    password,
+    nickName: nickName ? nickName : userName,
     genderen
-  }) 
-  return result.dataValues
+  })
+  const data = result.dataValues
+  // 自己关注自己（为了方便首页获取数据）
+  addFollower(data.id, data.id)
+  return data
 }
 
 /**
@@ -68,8 +71,8 @@ async function deleteUser(userName) {
  * @param {object} param1 查询条件
  */
 async function updateUser(
-  { newPassword, newNickName, newCity, newPicture }, 
-  {userName,password}) {
+  { newPassword, newNickName, newCity, newPicture },
+  { userName, password }) {
   // 拼接修改内容
   const updateData = {}
   if (newPassword) {
