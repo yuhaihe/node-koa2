@@ -10,9 +10,9 @@ const { format } = require('date-fns')
  * @param {string} str 时间字符串
  */
 function timeFormat(str) {
-    return format(new Date(str), 'MM.dd HH:mm')
+  return format(new Date(str), 'MM.dd HH:mm')
 }
 
 module.exports = {
-    timeFormat
+  timeFormat
 }
