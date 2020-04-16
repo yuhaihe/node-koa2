@@ -3,9 +3,6 @@
  * @author hayho
  */
 
-/**
- * @description User数据模型
- */
 const seq = require('../seq')
 const { STRING, TEXT, INTEGER } = require('../types')
 

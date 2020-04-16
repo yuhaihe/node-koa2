@@ -42,6 +42,7 @@ async function getBlogListByUser({ userName, pageIndex = 1, pageSize = 5 }) {
   })
 
   let blogList = result.rows.map(row => row.dataValues)
+  blogList = formatBlog(blogList)
   blogList.map(item => {
     const user = item.user.dataValues
     item.user = formatUser(user)
