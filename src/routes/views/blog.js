@@ -27,7 +27,6 @@ router.get('/', loginRedirect, async (ctx, next) => {
   // 获取关注人列表
   const followersResult = await getFollowers(userId)
   const { count: followersCount, followersList } = followersResult.data
-
   await ctx.render('index', {
     userData: {
       userInfo: userInfo,
