@@ -41,7 +41,7 @@ async function getAtReleationCount(userId) {
 async function getAtUserBlogList(userId, pageIndex, pageSize = 10) {
   const result = await Blog.findAndCountAll({
     limit: pageSize,
-    offSet: pageIndex * pageSize,
+    offset: pageIndex * pageSize,
     order: [
       ['id', 'desc']
     ],
@@ -49,7 +49,7 @@ async function getAtUserBlogList(userId, pageIndex, pageSize = 10) {
       // @ 关系
       {
         model: AtRelation,
-        attributes: ['userId', 'blogId'],
+        attributes: ['userId', 'blogId', 'id'],
         where: {
           userId
         }
@@ -74,8 +74,36 @@ async function getAtUserBlogList(userId, pageIndex, pageSize = 10) {
   }
 }
 
+/**
+ * 更新 AtRealation
+ * @param {object} param0 更新内容
+ * @param {object} param1 查询条件
+ */
+async function updateAtRealation({newIsRead}, {userId, isRead}) {
+  const updateData = {}
+  if (newIsRead) {
+    updateData.isRead = newIsRead
+  }
+
+  // 拼接查询条件
+  const whereData = {}
+  if (userId) {
+    whereData.userId = userId
+  }
+  if (isRead) {
+    whereData.isRead = isRead
+  }
+
+  // 执行更新
+  const result = await AtRelation.update(updateData, {
+    where: whereData
+  })
+  return result[0] > 0
+}
+
 module.exports = {
   createAtReleation,
   getAtReleationCount,
-  getAtUserBlogList
+  getAtUserBlogList,
+  updateAtRealation
 }

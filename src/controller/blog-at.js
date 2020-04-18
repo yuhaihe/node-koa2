@@ -3,7 +3,7 @@
  * @author hayho
  */
 
-const { getAtReleationCount, getAtUserBlogList } = require('../services/at-relation')
+const { getAtReleationCount, getAtUserBlogList, updateAtRealation } = require('../services/at-relation')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { PAGE_SIZE } = require('../conf/constants')
 /**
@@ -32,7 +32,22 @@ async function getAtMeBlogList (userId, pageIndex = 0) {
   })
 }
 
+/**
+ * 标记已读
+ * @param {number} userId 
+ */
+async function markAsRead(userId) {
+  try {
+    await updateAtRealation({newIsRead: true}, {userId, isRead: false})
+  } catch (ex) {
+    console.error(ex)
+  }
+
+  // 不需要返回model
+}
+
 module.exports = {
   getAtMeCount,
-  getAtMeBlogList
+  getAtMeBlogList,
+  markAsRead
 }
