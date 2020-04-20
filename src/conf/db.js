@@ -26,7 +26,7 @@ if (isProd) {
   MYSQL_CONF = {
     host: '49.233.92.122',
     user: 'admin_remote',
-    password: 'BKv^Q%TjCj%8M#HW',
+    password: '1AHS#~/xk2',
     port: '3306',
     database: 'koa2'
   }
