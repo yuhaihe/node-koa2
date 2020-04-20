@@ -30,7 +30,6 @@ async function getUserInfo(userName, password) {
     // 未找到
     return result
   }
-
   // 格式化
   const formatResult = formatUser(result.dataValues)
   return formatResult

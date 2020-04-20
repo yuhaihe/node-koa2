@@ -14,7 +14,7 @@ const cors = require('koa2-cors') //跨域处理
 
 const { REDIS_CONF } = require('./src/conf/db')
 const { isProd } = require('./src/utils/env')
-const { SESSION_SCRECT_KEY } = require('./src/conf/screctKeys')
+const { SESSION_SCRECT_KEY, REDIS_PASSWORD } = require('./src/conf/screctKeys')
 // 路由
 const errorViewRouter = require('./src/routes/views/error')
 const blogViewRouter = require('./src/routes/views/blog')
@@ -66,7 +66,9 @@ app.use(session({
   },
   // ttl: 24 * 60 * 60 * 1000,
   store: redisStore({
-    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
+    host: REDIS_CONF.host,
+    port: REDIS_CONF.port,
+    password: REDIS_PASSWORD
   })
 }))
 
