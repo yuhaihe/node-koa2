@@ -19,7 +19,7 @@ let MYSQL_CONF = {
 
 if (isProd) {
   REDIS_CONF = {
-    port: 6379,
+    port: 6380,
     host: '49.233.92.122'
   }
 

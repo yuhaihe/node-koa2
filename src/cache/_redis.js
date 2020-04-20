@@ -5,9 +5,18 @@
 
 const redis = require('redis')
 const { REDIS_CONF } = require('../conf/db')
+const { REDIS_PASSWORD } = require('../conf/screctKeys')
+const { isProd } = require('../utils/env')
 
+let redis_conf = {
+  host: REDIS_CONF.host,
+  port: REDIS_CONF.port, 
+}
+if (isProd) {
+  redis_conf.password = REDIS_PASSWORD
+}
 // 创建客户端
-const redisClient = redis.createClient(REDIS_CONF.port, REDIS_CONF.host)
+const redisClient = redis.createClient(redis_conf)
 
 redisClient.on('error', err => {
   console.log('redis error', err)
