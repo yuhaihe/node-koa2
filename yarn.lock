@@ -5106,9 +5106,9 @@ thenify-all@^1.0.0:
     any-promise "^1.0.0"
 
 three@*:
-  version "0.110.0"
-  resolved "https://registry.npm.taobao.org/three/download/three-0.110.0.tgz#8719591de1336269113ee79f4268ba247b2324f8"
-  integrity sha1-hxlZHeEzYmkRPuefQmi6JHsjJPg=
+  version "0.126.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.126.0.tgz#924818341cd4441ef247e3cbf236f6160b90a216"
+  integrity sha512-/MecvboUefStCkUfXLImoJxthN+FoLPcEP7pz1r1Dd9i8BPGGuj+S1sOPRvW4Z+ViZjP2oWWm1inNC/MT52ybA==
 
 throat@^4.0.0:
   version "4.1.0"
